@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router"; 
 import PageHome from '@/views/PageHome';
 
+
 const routes = [
   {
     path : '/',
@@ -16,6 +17,9 @@ const routes = [
     path : '/board/list',
     name : 'BoardList',
     component : () => import('@/views/board/BoardList.vue')
+  },
+  {
+    
   }
 ];  
 

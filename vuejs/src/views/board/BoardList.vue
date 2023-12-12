@@ -14,9 +14,9 @@
       </thead>
       <tbody>
         <tr v-for="(row,idx) in list" :key="idx">
-          <td>{{ row.idx }}</td>
-          <td><a>{{ row.title }}</a></td>
-          <td>{{ row.writer }}</td>
+          <td>{{ idx + 1 }}</td>
+          <td><a>{{ row.email }}</a></td>
+          <td>{{ row.name }}</td>
           <td>{{ row.created_at }}</td>
         </tr>
       </tbody>
@@ -31,30 +31,7 @@
       return {
         requestBody : {},
         list : {},
-        no : '',
-        paging : {
-          'block' : 0,
-          'end_page' : 0,
-          'next_block' : 0,
-          'page' : 0,
-          'page_size' : 0,
-          'prev_block' : 0,
-          'start_index' : 0,
-          'start_page' : 0,
-          'total_block' : 0,
-          'total_list_cnt' : 0,
-          'total_page_cnt' : 0,
-        },
-        page : this.$route.query.page ? this.$route.query.page : 1,
-        size : this.$route.query.size ? this.$route.query.size : 10,
-        keyword : this.$route.query.keyword,
-        paginavigation: function () {
-          let pageNumber = [] 
-          let start_page = this.paging.start_page;
-          let end_page = this.paging.end_page;
-          for (let i = start_page; i <= end_page; i++) pageNumber.push(i);
-          return pageNumber;
-        }
+        no : ''
       }
     },
     mounted() {
@@ -62,26 +39,26 @@
     },  
     methods : {
       fetchBoardList() {
-        this.list = [
-          {
-            'idx' : 1,
-            'title' : '테스트입니다',
-            'writer' : '테스터',
-            'created_at' : '2023-12-22'
-          },
-           {
-            'idx' : 2,
-            'title' : '공지사항입니다',
-            'writer' : '관리자',
-            'created_at' : '2023-11-23'
-          },
-           {
-            'idx' : 3,
-            'title' : '게시물입니다',
-            'writer' : '유저',
-            'created_at' : '2023-10-22'
-          },
-        ]
+        this.$axios.get(this.$serverUrl + "/api/users", {
+        }).then((res) => {
+          
+          this.list = res.data;
+
+        }).catch((err) => {
+          console.error(err);
+        })
+      },
+      fnView(idx) {
+        this.requestBody.idx = idx;
+        this.$router.push({
+          path : './detail',
+          query : this.requestBody
+        });
+      },
+      fnWrite() {
+        this.$router.push({
+          path : './write'
+        })
       },
     }
   }
