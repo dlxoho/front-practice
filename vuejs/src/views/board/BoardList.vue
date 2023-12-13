@@ -15,7 +15,7 @@
       <tbody>
         <tr v-for="(row,idx) in list" :key="idx">
           <td>{{ idx + 1 }}</td>
-          <td><a>{{ row.email }}</a></td>
+          <td><a @click="fnView(`${row.user_id}`)">{{ row.email }}</a></td>
           <td>{{ row.name }}</td>
           <td>{{ row.created_at }}</td>
         </tr>
@@ -39,7 +39,7 @@
     },  
     methods : {
       fetchBoardList() {
-        this.$axios.get(this.$serverUrl + "/api/users", {
+        this.$axios.get(this.$serverUrl + "/users", {
         }).then((res) => {
           
           this.list = res.data;
@@ -51,7 +51,7 @@
       fnView(idx) {
         this.requestBody.idx = idx;
         this.$router.push({
-          path : './detail',
+          path : '/user/detail',
           query : this.requestBody
         });
       },

@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router"; 
 import PageHome from '@/views/PageHome';
-
+import UserDetail from '@/views/board/UserDetail.vue';
 
 const routes = [
   {
@@ -19,7 +19,9 @@ const routes = [
     component : () => import('@/views/board/BoardList.vue')
   },
   {
-    
+    path : '/user/detail',
+    name : 'BoardDetail',
+    component : UserDetail
   }
 ];  
 
